@@ -123,7 +123,6 @@ results/<task>/<dataset>/<setting>/
 ```
 
 结果目录记录运行配置、validation history、test metrics 和可选的完整轨迹。
-分析代码不会读取旧仓库，也不会在正式结果缺失时静默使用不完整的 seed 作图。
 
 ## 进一步阅读
 

@@ -135,8 +135,7 @@ results/<task>/<dataset>/<setting>/
 ```
 
 The result directory records configuration, validation history, test metrics,
-and optional full trajectories. The analysis package never searches the old
-repository or silently substitutes missing runs.
+and optional full trajectories.
 
 ## Documentation
 
