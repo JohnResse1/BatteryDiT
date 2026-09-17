@@ -1,15 +1,15 @@
 <div align="center">
 
-# BatteryDiT
+# Unified battery trajectory recovery under heterogeneous observation degradation reveals distinct dimensions of fidelity
 
-**面向鲁棒电池健康预测的物理先验扩散重建框架**
+**BatteryDiT · 面向鲁棒电池健康预测的物理先验扩散重建框架**
 
 <p>
   <a href="environment.yml"><img alt="Python 3.10" src="https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white"></a>
   <a href="environment.yml"><img alt="PyTorch 2.0.1" src="https://img.shields.io/badge/PyTorch-2.0.1-EE4C2C?logo=pytorch&logoColor=white"></a>
   <a href="environment.yml"><img alt="CUDA 11.8" src="https://img.shields.io/badge/CUDA-11.8-76B900?logo=nvidia&logoColor=white"></a>
-  <a href="source_code/exp/protocol.py"><img alt="三种子复现" src="https://img.shields.io/badge/reproducibility-3_seeds-2F80ED"></a>
-  <a href="https://github.com/JohnResse1/BatteryDiT/releases/tag/v0.1.0-pre-results"><img alt="预发布版本 v0.1.0" src="https://img.shields.io/badge/release-v0.1.0--pre--results-8A2BE2"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-F4C430.svg"></a>
+  <a href="https://github.com/JohnResse1/BatteryDiT/releases/tag/v0.1.1-pre-results"><img alt="预发布版本 v0.1.1" src="https://img.shields.io/badge/release-v0.1.1--pre--results-8A2BE2"></a>
 </p>
 
 [English](README.md) · [完整复现说明](source_code/README-zh.md) · [数据协议](source_code/data/README.md) · [论文绘图](analysis/README-zh.md)
@@ -136,3 +136,8 @@ results/<task>/<dataset>/<setting>/
 
 使用数据时请引用正式数据清单中列出的公开来源。BatteryDiT 论文的正式引用信息将在
 归档版本发布后补充到此处。
+
+## 开源许可
+
+源代码按照 [MIT License](LICENSE) 发布。第三方数据集仍遵循各自原始发布方的
+许可条款。
