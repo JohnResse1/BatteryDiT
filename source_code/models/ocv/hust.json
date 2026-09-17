@@ -1,0 +1,22 @@
+{
+  "maximum_candidate_voltage_span": 1.1359000205993652,
+  "policy": {
+    "minimum_charge_points": 20,
+    "minimum_voltage_span_fraction": 0.9,
+    "positive_current_fraction": 0.01,
+    "ranking_current_quantile": 0.9,
+    "ranking_cycle_count": 5,
+    "soc_points": 1000,
+    "target_cycle": 10
+  },
+  "rate_proxy": 5.497387847900391,
+  "rate_proxy_definition": "mean charging-current q0.9 over the nearest 5 valid cycles",
+  "schema_version": 1,
+  "selected_cell": "3-1",
+  "selected_cycle": 10,
+  "selected_voltage_max": 3.599600076675415,
+  "selected_voltage_min": 2.4763998985290527,
+  "selected_voltage_span": 1.1232001781463623,
+  "source": "train/clean only",
+  "train_root": "data/hust/train/clean"
+}

@@ -1,0 +1,48 @@
+{
+  "train": [
+    "MICH_BLForm10_pouch_NMC_25C_0-100_1-1C_j",
+    "MICH_BLForm12_pouch_NMC_25C_0-100_1-1C_b",
+    "MICH_BLForm14_pouch_NMC_25C_0-100_1-1C_d",
+    "MICH_BLForm16_pouch_NMC_25C_0-100_1-1C_f",
+    "MICH_BLForm17_pouch_NMC_25C_0-100_1-1C_g",
+    "MICH_BLForm18_pouch_NMC_25C_0-100_1-1C_h",
+    "MICH_BLForm19_pouch_NMC_25C_0-100_1-1C_i",
+    "MICH_BLForm1_pouch_NMC_45C_0-100_1-1C_a",
+    "MICH_BLForm20_pouch_NMC_25C_0-100_1-1C_j",
+    "MICH_BLForm3_pouch_NMC_45C_0-100_1-1C_c",
+    "MICH_BLForm4_pouch_NMC_45C_0-100_1-1C_d",
+    "MICH_BLForm6_pouch_NMC_45C_0-100_1-1C_f",
+    "MICH_BLForm7_pouch_NMC_45C_0-100_1-1C_g",
+    "MICH_BLForm8_pouch_NMC_45C_0-100_1-1C_h",
+    "MICH_MCForm21_pouch_NMC_25C_0-100_1-1C_a",
+    "MICH_MCForm22_pouch_NMC_25C_0-100_1-1C_b",
+    "MICH_MCForm23_pouch_NMC_25C_0-100_1-1C_c",
+    "MICH_MCForm25_pouch_NMC_25C_0-100_1-1C_e",
+    "MICH_MCForm26_pouch_NMC_25C_0-100_1-1C_f",
+    "MICH_MCForm27_pouch_NMC_25C_0-100_1-1C_g",
+    "MICH_MCForm28_pouch_NMC_25C_0-100_1-1C_h",
+    "MICH_MCForm31_pouch_NMC_45C_0-100_1-1C_a",
+    "MICH_MCForm32_pouch_NMC_45C_0-100_1-1C_b",
+    "MICH_MCForm34_pouch_NMC_45C_0-100_1-1C_d",
+    "MICH_MCForm37_pouch_NMC_45C_0-100_1-1C_g",
+    "MICH_MCForm38_pouch_NMC_45C_0-100_1-1C_h",
+    "MICH_MCForm39_pouch_NMC_45C_0-100_1-1C_i",
+    "MICH_MCForm40_pouch_NMC_45C_0-100_1-1C_j"
+  ],
+  "vali": [
+    "MICH_BLForm13_pouch_NMC_25C_0-100_1-1C_c",
+    "MICH_BLForm5_pouch_NMC_45C_0-100_1-1C_e",
+    "MICH_MCForm24_pouch_NMC_25C_0-100_1-1C_d",
+    "MICH_MCForm36_pouch_NMC_45C_0-100_1-1C_f"
+  ],
+  "test": [
+    "MICH_BLForm11_pouch_NMC_25C_0-100_1-1C_a",
+    "MICH_BLForm15_pouch_NMC_25C_0-100_1-1C_e",
+    "MICH_BLForm2_pouch_NMC_45C_0-100_1-1C_b",
+    "MICH_BLForm9_pouch_NMC_45C_0-100_1-1C_i",
+    "MICH_MCForm29_pouch_NMC_25C_0-100_1-1C_i",
+    "MICH_MCForm30_pouch_NMC_25C_0-100_1-1C_j",
+    "MICH_MCForm33_pouch_NMC_45C_0-100_1-1C_c",
+    "MICH_MCForm35_pouch_NMC_45C_0-100_1-1C_e"
+  ]
+}

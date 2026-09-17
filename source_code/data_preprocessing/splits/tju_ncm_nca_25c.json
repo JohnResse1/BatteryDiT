@@ -1,0 +1,17 @@
+{
+  "train": [
+    "NCA_NCM_CY25-05_1-#1",
+    "NCA_NCM_CY25-05_1-#3",
+    "NCA_NCM_CY25-05_2-#1",
+    "NCA_NCM_CY25-05_4-#2",
+    "NCA_NCM_CY25-05_4-#3"
+  ],
+  "vali": [
+    "NCA_NCM_CY25-05_1-#2",
+    "NCA_NCM_CY25-05_2-#2"
+  ],
+  "test": [
+    "NCA_NCM_CY25-05_2-#3",
+    "NCA_NCM_CY25-05_4-#1"
+  ]
+}

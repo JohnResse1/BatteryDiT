@@ -1,0 +1,87 @@
+# Python bytecode and tool caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local Python and Conda environments
+.venv/
+venv/
+env/
+.conda/
+*.egg-info/
+build/
+dist/
+.env
+.env.*
+!.env.example
+
+# Editors and operating-system files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints/
+
+# Raw and generated datasets. Keep only the inventory and citation document.
+/source_code/data/*
+!/source_code/data/README.md
+
+# Model checkpoints. Keep only the directory contract.
+/source_code/checkpoints/*
+!/source_code/checkpoints/README.md
+*.pth
+*.pt
+*.ckpt
+
+# Experiment outputs remain local while the formal rerun is incomplete.
+/results/*
+!/results/README.md
+
+# Historical comparison outputs and internal migration notes remain local.
+/old_results/
+/docs/refactoring/
+
+# Generated paper figures and analysis audit outputs
+/analysis/outputs/
+/wandb/
+/runs/
+/lightning_logs/
+/tensorboard/
+
+# Local editable manuscript files
+/docs/paper/*.docx
+
+# Local cluster submission scripts and scheduler logs
+/source_code/slurm_scripts/
+/slurm_scripts/
+slurm-*.out
+*.out
+*.err
+*.log
+nohup.out
+
+# Interrupted preprocessing and local scratch files
+.*.building/
+*.tmp
+*.temp
+
+# Raw archive formats should never be committed outside the ignored data tree.
+*.pkl
+*.pickle
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Keep the small, versioned SOC--OCV priors even though they use NPZ.
+!source_code/models/ocv/*.npz

@@ -1,0 +1,43 @@
+{
+  "protocol": "benchmark819_matched_multidataset_rebuild_v1",
+  "datasets": [
+    "mit",
+    "hust",
+    "mich",
+    "sdu",
+    "stanford_2",
+    "tju_nca_45c",
+    "tju_ncm_45c"
+  ],
+  "seeds": [2021, 2022, 2023],
+  "reconstruction": {
+    "model": "batterydit",
+    "epochs": 200,
+    "batch_size": 64,
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0,
+    "sampling_steps": 1,
+    "train_split": "train/clean",
+    "validation_conditions": ["clean", "downsample", "segment", "random", "destructive"],
+    "checkpoint": "best five-view validation selection checkpoint with early stopping",
+    "loss": "velocity MSE + 1.0 * physical-voltage adjacent-difference MSE",
+    "test_conditions": ["clean", "downsample", "segment", "random", "destructive"],
+    "metric": "mean per-cycle physical-voltage RMSE"
+  },
+  "downstream": {
+    "predictor": "trb",
+    "epochs": 200,
+    "batch_size": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "validation_interval": 10,
+    "validation_conditions": ["clean", "downsample", "segment", "random", "destructive"],
+    "loss": "SmoothL1([SOH, RUL auxiliary])",
+    "selection": "unweighted mean SOH RMSE across clean, downsample, segment, random, and destructive validation views every 10 epochs",
+    "test_conditions": ["clean", "downsample", "segment", "random", "destructive"]
+  },
+  "dataset_configuration": "Resolved by source_code.main from models.dataset_physics and models/ocv/<dataset>.npz",
+  "label_note": "SOH is read directly from each formal NPZ. SDU is its fixed normalized second-life target and is not pooled with nominal-SOH datasets."
+}

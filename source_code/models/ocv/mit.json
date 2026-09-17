@@ -1,0 +1,22 @@
+{
+  "maximum_candidate_voltage_span": 1.5697565078735352,
+  "policy": {
+    "minimum_charge_points": 20,
+    "minimum_voltage_span_fraction": 0.9,
+    "positive_current_fraction": 0.01,
+    "ranking_current_quantile": 0.9,
+    "ranking_cycle_count": 5,
+    "soc_points": 1000,
+    "target_cycle": 10
+  },
+  "rate_proxy": 4.364849424362182,
+  "rate_proxy_definition": "mean charging-current q0.9 over the nearest 5 valid cycles",
+  "schema_version": 1,
+  "selected_cell": "b3c7",
+  "selected_cycle": 10,
+  "selected_voltage_max": 3.6001200675964355,
+  "selected_voltage_min": 2.0827207565307617,
+  "selected_voltage_span": 1.5174071788787842,
+  "source": "train/clean only",
+  "train_root": "data/mit/train/clean"
+}
