@@ -4,6 +4,14 @@
 
 **Physics-informed diffusion reconstruction for robust battery health prediction**
 
+<p>
+  <a href="environment.yml"><img alt="Python 3.10" src="https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white"></a>
+  <a href="environment.yml"><img alt="PyTorch 2.0.1" src="https://img.shields.io/badge/PyTorch-2.0.1-EE4C2C?logo=pytorch&logoColor=white"></a>
+  <a href="environment.yml"><img alt="CUDA 11.8" src="https://img.shields.io/badge/CUDA-11.8-76B900?logo=nvidia&logoColor=white"></a>
+  <a href="source_code/exp/protocol.py"><img alt="Three model seeds" src="https://img.shields.io/badge/reproducibility-3_seeds-2F80ED"></a>
+  <a href="https://github.com/JohnResse1/BatteryDiT/releases/tag/v0.1.0-pre-results"><img alt="Pre-release v0.1.0" src="https://img.shields.io/badge/release-v0.1.0--pre--results-8A2BE2"></a>
+</p>
+
 [中文说明](README-zh.md) · [Reproduction guide](source_code/README-zh.md) · [Data protocol](source_code/data/README.md) · [Analysis](analysis/README-zh.md)
 
 </div>
