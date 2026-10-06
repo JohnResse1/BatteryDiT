@@ -86,7 +86,10 @@ def parser() -> argparse.ArgumentParser:
     command.add_argument("--num_heads", type=int, default=4)
     command.add_argument("--timestep_embed_dim", type=int, default=256)
     command.add_argument("--timestep_freq_embed_size", type=int, default=64)
-    command.add_argument("--sampling_steps", type=int, default=1)
+    command.add_argument(
+        "--sampling_steps", type=int, default=1,
+        help="BatteryDiT flow-solver steps; CSDI always uses --diffusion_steps",
+    )
     command.add_argument("--dropout", type=float, default=0.1)
 
     command.add_argument("--d_model", type=int, default=256)
@@ -135,6 +138,12 @@ def configure_dataset(args: argparse.Namespace) -> None:
     if not args.ocv_table_path:
         args.ocv_table_path = f"models/ocv/{args.data}.npz"
 
+
+def configure_model_protocol(args: argparse.Namespace) -> None:
+    """Resolve model-specific meanings behind the shared command-line API."""
+    if args.recon_model == "csdi":
+        args.sampling_steps = args.diffusion_steps
+
 # Set the random seed for reproducibility.
 def set_seed(seed: int) -> None:
     random.seed(seed)
@@ -160,6 +169,7 @@ def run(args: argparse.Namespace) -> None:
 
 
     configure_dataset(args)
+    configure_model_protocol(args)
     set_seed(args.seed)
     args.use_gpu = bool(args.use_gpu and torch.cuda.is_available())
     experiment_class = TASK_REGISTRY[args.task_name]

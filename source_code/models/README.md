@@ -8,7 +8,7 @@
 | 目录或文件 | 作用 |
 | --- | --- |
 | `BatteryDiT.py` | 正式 BatteryDiT 重建模型及统一的 train/sampling 接口 |
-| `BatteryDiT_ablation_aligned.py` | 与正式模型接口对齐的保留消融实现 |
+| `BatteryDiT_ablation_aligned.py` | 与正式模型接口对齐的待执行消融实现 |
 | `recon_model/dit_backbone.py` | Diffusion Transformer backbone；参数名属于已有 checkpoint 合约 |
 | `recon_model/Baseline_CSDI_official.py` | CSDI 重建基线 |
 | `recon_model/Baseline_Transformer.py` | 不使用 metadata 的 Transformer 重建基线 |

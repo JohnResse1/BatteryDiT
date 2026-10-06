@@ -12,7 +12,7 @@ class DatasetPhysics:
 DATASET_PHYSICS = MappingProxyType({
     # Locked benchmark-819 normalization for the MIT/LFP experiment.
     "mit": DatasetPhysics("MIT", 2.0, 3.6),
-    "hust": DatasetPhysics("HUST", 1.5, 4.2),
+    "hust": DatasetPhysics("HUST", 2.0, 3.6),
     "mich": DatasetPhysics("NCM", 3.0, 4.2),
     "sdu": DatasetPhysics("NCM", 2.5, 4.2),
     "stanford_2": DatasetPhysics("NCM", 3.0, 4.4),

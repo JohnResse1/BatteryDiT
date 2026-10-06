@@ -1,1 +1,0 @@
-"""Paper figure builders."""

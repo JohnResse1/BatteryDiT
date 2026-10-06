@@ -92,8 +92,19 @@ class Exp_Predict_Downstream(Exp_Basic):
         if cached is not None:
             reconstruction, target, keys = cached
             self.model.eval()
+            # The cached CSDI path holds the whole split in one tensor, so it
+            # must be pushed through the predictor in evaluation-sized chunks.
+            # A single forward pass over e.g. 54,177 cycles makes the global
+            # attention allocate ~13 GiB and OOMs a 24 GiB card; chunking is
+            # numerically identical (all predictor ops are per-sample).
+            batch_size = int(getattr(self.args, "eval_batch_size", None) or
+                             max(1, int(self.args.batch_size) * 8))
+            chunks = []
             with torch.no_grad():
-                prediction = self.model(reconstruction.to(self.device)).cpu().numpy()
+                for start in range(0, reconstruction.shape[0], batch_size):
+                    chunk = reconstruction[start:start + batch_size].to(self.device)
+                    chunks.append(self.model(chunk).cpu())
+            prediction = torch.cat(chunks).numpy()
             target_array = target.numpy()
             mae, mse, rmse = metric(prediction[:, 0], target_array[:, 0])
             return {"sample_count": int(target_array.shape[0]), "soh_mae": float(mae), "soh_mse": float(mse), "soh_rmse": float(rmse)}, {"prediction": prediction, "target": target_array, "keys": keys}
@@ -231,14 +242,19 @@ class Exp_Predict_Downstream(Exp_Basic):
         (results / "validation_metrics.json").write_text(json.dumps(reports, indent=2))
         return reports
 
+    def _load_predictor(self, path: str | Path) -> None:
+        """Load one frozen downstream predictor checkpoint strictly."""
+        checkpoint = Path(path)
+        if not checkpoint.is_file():
+            raise FileNotFoundError(f"predictor checkpoint not found: {checkpoint}")
+        payload = torch.load(checkpoint, map_location=self.device)
+        state = payload.get("model", state_dict_from_checkpoint(payload)) if isinstance(payload, dict) else payload
+        self._unwrap(self.model).load_state_dict(state, strict=True)
+
     def test(self, setting: str):
         checkpoints, results = self._run_paths(setting)
         path = checkpoints / "best.pth"
-        if not path.is_file():
-            raise FileNotFoundError(f"predictor checkpoint not found: {path}")
-        payload = torch.load(path, map_location=self.device)
-        state = payload.get("model", state_dict_from_checkpoint(payload)) if isinstance(payload, dict) else payload
-        self._unwrap(self.model).load_state_dict(state, strict=True)
+        self._load_predictor(path)
         reports, arrays = {}, {}
         for condition in FORMAL_RECONSTRUCTION_CONDITIONS:
             report, values = self._evaluate("test", condition)

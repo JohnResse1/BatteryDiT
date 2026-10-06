@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
 
-from .diagnostic_features import delta_Q
+from .voltage_window import delta_Q
 
 
 POSITIONS = (0.20, 0.40, 0.60, 0.80)

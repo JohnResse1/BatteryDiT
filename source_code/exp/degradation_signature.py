@@ -108,7 +108,10 @@ class Exp_Degradation_Signature(Exp_Predict_Downstream):
         return np.concatenate(corrupted_latent), np.concatenate(reconstructed_latent), np.concatenate(soh)
 
     def test(self, setting: str):
-        self._load_predictor()
+        predictor_checkpoint = str(getattr(self.args, "pred_chkpt", "")).strip()
+        if not predictor_checkpoint:
+            raise ValueError("--pred_chkpt is required for degradation-signature readout")
+        self._load_predictor(predictor_checkpoint)
         train_loader, train_keys, train_cells = _balanced_loader(self.args, "train")
         test_loader, test_keys, test_cells = _balanced_loader(self.args, "test")
         train_latent, train_soh = self._clean_latents(train_loader)

@@ -1,41 +1,58 @@
-"""Single entry point for generating paper figures from formal results."""
+"""Single entry point for the analysis layer.
+
+    python -m analysis.main --list
+    python -m analysis.main --task benchmark
+    python -m analysis.main --task workflow:longitudinal
+
+Each task reads `results/` and writes machine-readable tables into
+`analysis/outputs/`, which is the only input the figure layer reads.
+"""
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
-from common.paths import RESULTS_ROOT
-from figures import benchmark, multi_dataset, population_individual, stress_test
-from supplementary import benchmark as supplementary_benchmark, recoverability
+from analysis import (benchmark, multi_dataset, paper_results,
+                      population_individual, stress_test, stress_trajectories,
+                      supplementary)
+from analysis.workflows import (cross_method_canonical, cross_system,
+                                 longitudinal_canonical,
+                                 sliding_occlusion_canonical)
 
 
-FIGURES = {
-    "benchmark": benchmark.draw,
-    "stress_test": stress_test.draw,
-    "multi_dataset": multi_dataset.draw,
-    "population_individual": population_individual.draw,
-    "manifold_validation": recoverability.draw_manifold_validation,
-    "individual_fidelity": recoverability.draw_individual_fidelity,
-    "signature_linkage": recoverability.draw_signature_linkage,
-    "reconstruction_examples": supplementary_benchmark.draw_reconstruction_examples,
-    "waveform_distributions": supplementary_benchmark.draw_waveform_distributions,
-    "soh_parity": supplementary_benchmark.draw_soh_parity,
-    "downstream_comparison": supplementary_benchmark.draw_downstream_comparison,
+def _run_sliding_occlusion() -> None:
+    """Run the canonical sliding-occlusion workflow with its defaults."""
+    sliding_occlusion_canonical.run()
+
+TASKS = {
+    "benchmark": benchmark.main,
+    "stress_test": stress_test.main,
+    "stress_trajectories": stress_trajectories.main,
+    "multi_dataset": multi_dataset.main,
+    "population_individual": population_individual.main,
+    "supplementary": supplementary.main,
+    "paper_results": paper_results.main,
+    "workflow:cross_system": cross_system.run,
+    "workflow:cross_method": cross_method_canonical.run,
+    "workflow:longitudinal": longitudinal_canonical.run,
+    "workflow:sliding_occlusion": _run_sliding_occlusion,
 }
 
 
 def parser() -> argparse.ArgumentParser:
     command = argparse.ArgumentParser(description=__doc__)
-    command.add_argument("--figure", required=True, choices=tuple(FIGURES))
-    command.add_argument("--dataset", default="mit")
-    command.add_argument("--results_dir", type=Path, default=RESULTS_ROOT)
+    command.add_argument("--task", choices=tuple(TASKS))
+    command.add_argument("--list", action="store_true")
     return command
 
 
 def main(args: argparse.Namespace) -> None:
-    outputs = FIGURES[args.figure](args.dataset, results_root=args.results_dir)
-    for path in outputs.values():
-        print(path)
+    if args.list:
+        for name in TASKS:
+            print(name)
+        return
+    if not args.task:
+        raise SystemExit("--task is required (or use --list)")
+    TASKS[args.task]()
 
 
 if __name__ == "__main__":

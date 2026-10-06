@@ -452,7 +452,12 @@ class Model(nn.Module):
         return sample
 
     def forward(self, V, I, mode="recon_only_train", steps=1):
-        sampling_steps = max(1, min(int(steps), self.diffusion_steps))
+        # ``steps`` is part of the shared reconstruction API and controls the
+        # flow-matching solver used by BatteryDiT.  It must not shorten CSDI's
+        # discrete diffusion chain: the formal CSDI baseline always evaluates
+        # all configured reverse-diffusion steps.
+        del steps
+        sampling_steps = self.diffusion_steps
         if V.dim() == 2:
             V = V.unsqueeze(-1)
         if I.dim() == 2:

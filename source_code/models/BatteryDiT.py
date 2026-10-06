@@ -123,7 +123,9 @@ class Model(nn.Module):
                     ocv_voltage = ocv_npz["voltage"]
                 print(f"[Physics Operator] Loaded custom OCV table from {ocv_path} (len={len(ocv_soc)})")
             except Exception as error:
-                print(f"[Physics Operator] Failed to load OCV table from {ocv_path}, fallback to default OCV. Error: {error}")
+                raise RuntimeError(
+                    f"[Physics Operator] Required OCV table could not be loaded: {ocv_path}"
+                ) from error
 
         self.po = create_physics_operator(
             self.args,

@@ -102,7 +102,15 @@ class Exp_Direct_Prediction:
             torch.save({"model": self.model.state_dict(), "epoch": epoch, "record": record}, checkpoints / "last.pth")
             history.append(record)
             (results / "history.json").write_text(json.dumps(history, indent=2))
-        (results / "config.json").write_text(json.dumps({"protocol": PROTOCOL_NAME, "model": self.name, "arguments": {key: value for key, value in vars(self.args).items() if isinstance(value, (str, int, float, bool))}}, indent=2))
+        (results / "config.json").write_text(json.dumps({
+            "protocol": PROTOCOL_NAME,
+            "model": self.name,
+            "input_voltage": "physical V; v_min/v_max are not applied",
+            "arguments": {
+                key: value for key, value in vars(self.args).items()
+                if isinstance(value, (str, int, float, bool))
+            },
+        }, indent=2))
 
     def vali(self, setting: str):
         _, results = self._run_paths(setting)
