@@ -12,15 +12,16 @@
   <a href="https://github.com/JohnResse1/BatteryDiT/releases/tag/v0.1.1-pre-results"><img alt="Pre-release v0.1.1" src="https://img.shields.io/badge/release-v0.1.1--pre--results-8A2BE2"></a>
 </p>
 
-[中文说明](README-zh.md) · [Reproduction guide](source_code/README-zh.md) · [Data protocol](source_code/data/README.md) · [Analysis](analysis/README-zh.md)
+[中文说明](README-zh.md) · [Reproduction guide](REPRODUCTION.md) · [Data protocol](source_code/data/README.md)
 
 </div>
 
 BatteryDiT reconstructs complete charging trajectories from incomplete or
 corrupted measurements, then estimates battery state of health (SOH) from the
-recovered signal. This repository is the clean implementation and reproduction
-workspace used for data construction, model training, robustness evaluation,
-and paper figures.
+recovered signal. This repository is the public implementation and formal
+reproduction source for data construction, model training, and robustness
+evaluation. The complete reproduction workflow is documented in
+[`REPRODUCTION.md`](REPRODUCTION.md).
 
 ## Workflow
 
@@ -35,7 +36,7 @@ flowchart LR
     C --> G[Direct prediction baselines]
     F --> H[Metrics and trajectories]
     G --> H
-    H --> I[Paper analysis and figures]
+    H --> I[Optional result analysis]
 ```
 
 The preprocessing, training, and analysis layers are deliberately separated.
@@ -53,8 +54,9 @@ reads only recorded experiment outputs.
 - Reproduction runners for the reconstruction benchmark, downstream SOH
   prediction, stress tests, cross-dataset evaluation, and population/individual
   recovery analysis.
-- A separate analysis package that checks result completeness before producing
-  publication figures.
+- Optional analysis utilities that consume recorded experiment outputs. Raw
+  data, checkpoints, result arrays, manuscript files, and figure files are
+  intentionally excluded from the public source release.
 
 ## Repository layout
 
@@ -70,10 +72,9 @@ BatteryDiT_clean_rebuild/
 │   ├── configs/                # frozen experiment protocols
 │   └── checkpoints/            # local model state files
 ├── run_scripts/                # reproducible command-line workflows
-├── analysis/                   # paper tables and figures
+├── analysis/                   # optional analysis of recorded outputs
 ├── results/                    # metrics and exported trajectories
-├── tests/regression/           # protocol and compatibility checks
-└── docs/                       # manuscript and refactoring records
+└── tests/regression/           # protocol and compatibility checks
 ```
 
 Large raw data, generated NPZ files, checkpoints, and trajectory arrays are
@@ -90,6 +91,9 @@ The recorded environment uses Python 3.10, PyTorch 2.0.1, and CUDA 11.8. See
 [`environment.yml`](environment.yml) for the complete scientific Python stack.
 
 ## Quick start
+
+For the complete data, training, checkpoint, and evaluation sequence, see the
+[reproduction guide](REPRODUCTION.md).
 
 Place the public raw inputs under `source_code/data/raw_sources/`, then build a
 formal dataset:
@@ -139,8 +143,10 @@ and optional full trajectories.
 
 ## Documentation
 
-- [`source_code/README-zh.md`](source_code/README-zh.md): complete Chinese
-  reproduction guide and experiment order.
+- [`REPRODUCTION.md`](REPRODUCTION.md): canonical environment, data,
+  training, evaluation, and checkpoint workflow.
+- [`source_code/README-zh.md`](source_code/README-zh.md): source-tree
+  implementation notes and experiment interfaces.
 - [`source_code/data/README.md`](source_code/data/README.md): formal data
   inventory, provenance, and dataset citations.
 - [`source_code/data_preprocessing/README-zh.md`](source_code/data_preprocessing/README-zh.md):

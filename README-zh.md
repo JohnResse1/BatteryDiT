@@ -12,13 +12,14 @@
   <a href="https://github.com/JohnResse1/BatteryDiT/releases/tag/v0.1.1-pre-results"><img alt="预发布版本 v0.1.1" src="https://img.shields.io/badge/release-v0.1.1--pre--results-8A2BE2"></a>
 </p>
 
-[English](README.md) · [完整复现说明](source_code/README-zh.md) · [数据协议](source_code/data/README.md) · [论文绘图](analysis/README-zh.md)
+[English](README.md) · [完整复现说明](REPRODUCTION.md) · [数据协议](source_code/data/README.md)
 
 </div>
 
 BatteryDiT 从缺失或受扰动的充电测量中重建完整轨迹，再基于恢复后的信号估计
-电池健康状态（SOH）。本仓库是数据构建、模型训练、鲁棒性评估和论文绘图的
-完整复现工作区。
+电池健康状态（SOH）。本仓库是数据构建、模型训练和鲁棒性评估的公开实现与
+正式复现源码。完整的环境、数据、训练和评估顺序见
+[`REPRODUCTION.md`](REPRODUCTION.md)。
 
 ## 整体流程
 
@@ -33,7 +34,7 @@ flowchart LR
     C --> G[直接预测基线]
     F --> H[指标与完整轨迹]
     G --> H
-    H --> I[论文分析与绘图]
+    H --> I[可选结果分析]
 ```
 
 数据预处理、模型实验和论文分析彼此分离。训练只读取已经定稿的数据和
@@ -46,7 +47,8 @@ train-only SOC–OCV prior；分析只读取正式实验保存的结果，不重
 - BatteryDiT、物理算子、固定 SOC–OCV prior、重建基线、TRB 和直接预测基线。
 - 重建 benchmark、下游 SOH 预测、压力测试、多数据集验证以及
   population/individual 分解的正式入口。
-- 在绘图前主动检查 seed、模型和 condition 是否齐全的论文分析代码。
+- 可选的结果分析工具，只读取正式实验输出。原始数据、checkpoint、结果数组、
+  论文文档和图片均不放入公开源码。
 
 ## 目录结构
 
@@ -62,10 +64,9 @@ BatteryDiT_clean_rebuild/
 │   ├── configs/                # 固定实验协议
 │   └── checkpoints/            # 本地模型权重
 ├── run_scripts/                # 分类整理的复现命令
-├── analysis/                   # 论文表格与图片
+├── analysis/                   # 正式结果的可选分析代码
 ├── results/                    # 指标和导出的完整轨迹
-├── tests/regression/           # 协议与 checkpoint 兼容性检查
-└── docs/                       # 论文文档与重构记录
+└── tests/regression/           # 协议与 checkpoint 兼容性检查
 ```
 
 原始数据、生成的 NPZ、模型权重和完整轨迹都属于本地大文件，无需通过 Git 管理。
@@ -81,6 +82,9 @@ conda activate batterydit-robust-soh
 [`environment.yml`](environment.yml)。
 
 ## 快速开始
+
+完整的数据准备、训练、checkpoint 和评估顺序见
+[复现说明](REPRODUCTION.md)。
 
 将公开原始数据放入 `source_code/data/raw_sources/`，然后生成正式数据：
 
@@ -126,7 +130,9 @@ results/<task>/<dataset>/<setting>/
 
 ## 进一步阅读
 
-- [`source_code/README-zh.md`](source_code/README-zh.md)：完整复现流程和实验依赖顺序。
+- [`REPRODUCTION.md`](REPRODUCTION.md)：唯一的正式复现入口，包含环境、数据、训练、
+  评估和 checkpoint 流程。
+- [`source_code/README-zh.md`](source_code/README-zh.md)：代码层实现说明和实验接口。
 - [`source_code/data/README.md`](source_code/data/README.md)：正式数据清单、来源和引用。
 - [`source_code/data_preprocessing/README-zh.md`](source_code/data_preprocessing/README-zh.md)：
   预处理定义、固定划分和标签规则。

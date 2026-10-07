@@ -1,4 +1,8 @@
-# Source code：中文复现说明
+# Source code：实现与实验接口说明
+
+完整复现流程请先阅读仓库根目录的
+[`REPRODUCTION.md`](../REPRODUCTION.md)。本文件保留代码目录内的数据格式、
+模型协议和实验依赖说明。
 
 本目录是 BatteryDiT 的唯一代码入口。所有正式实验均从[`main.py`](main.py) 启动。
 

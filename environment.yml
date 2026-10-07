@@ -19,3 +19,4 @@ dependencies:
   - h5py
   - openpyxl
   - tqdm
+  - pytest
