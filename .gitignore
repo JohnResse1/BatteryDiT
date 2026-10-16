@@ -50,12 +50,30 @@ Thumbs.db
 /old_results/
 /docs/refactoring/
 
-# Manuscript, figure, exploratory, and archived result bundles remain local.
+# Manuscript, exploratory, and archived result bundles remain local.
 /docs/
-/figures/
 /finding/
 /paper_results/
 /analysis/assets/
+
+# Figure source and rendered figure files are public.  Numeric plotting assets,
+# audit dumps, and generated documentation remain local so data-derived tables
+# and machine-specific paths are not published accidentally.
+/figures/*
+!/figures/
+!/figures/**/
+!/figures/*.py
+!/figures/**/*.py
+!/figures/*.png
+!/figures/**/*.png
+!/figures/*.pdf
+!/figures/**/*.pdf
+!/figures/*.svg
+!/figures/**/*.svg
+/figures/**/*.csv
+/figures/**/*.csv.gz
+/figures/**/*.json
+/figures/**/*.md
 
 # Generated paper figures and analysis audit outputs
 /analysis/outputs/

@@ -47,8 +47,10 @@ train-only SOC–OCV prior；分析只读取正式实验保存的结果，不重
 - BatteryDiT、物理算子、固定 SOC–OCV prior、重建基线、TRB 和直接预测基线。
 - 重建 benchmark、下游 SOH 预测、压力测试、多数据集验证以及
   population/individual 分解的正式入口。
+- 主图和补充图的公开绘图代码，以及当前生成的 PNG/PDF/SVG 图件。数值分析输出和
+  派生绘图表仍保留在本地，并由正式实验重新生成。
 - 可选的结果分析工具，只读取正式实验输出。原始数据、checkpoint、结果数组、
-  论文文档和图片均不放入公开源码。
+  论文文档和分析输出不放入公开源码。
 
 ## 目录结构
 
@@ -65,11 +67,12 @@ BatteryDiT_clean_rebuild/
 │   └── checkpoints/            # 本地模型权重
 ├── run_scripts/                # 分类整理的复现命令
 ├── analysis/                   # 正式结果的可选分析代码
+├── figures/                    # 公开绘图代码与当前图件
 ├── results/                    # 指标和导出的完整轨迹
 └── tests/regression/           # 协议与 checkpoint 兼容性检查
 ```
 
-原始数据、生成的 NPZ、模型权重和完整轨迹都属于本地大文件，无需通过 Git 管理。
+原始数据、生成的 NPZ、模型权重、完整轨迹和分析表都属于本地产物，无需通过 Git 管理。
 
 ## 安装环境
 
@@ -103,6 +106,22 @@ bash run_scripts/benchmark/run_downstream.sh mit 2021 batterydit trb
 
 所有正式模型实验最终都进入 `source_code/main.py`。Shell 脚本只负责填入固定协议参数
 和匹配的 checkpoint 路径。
+
+## 绘图入口
+
+绘图层读取当前 `analysis/outputs/` 中的分析结果，并根据 `figures/` 下实际存在的
+目录自动发现图件入口。带有 `plot.py` 的图调用 `draw()`；只有 `make_*.py` 的图（如
+Fig. 6）调用其 `main()` 或 `draw()`。
+
+```bash
+PYTHONPATH=. python -m figures.main --list
+PYTHONPATH=. python -m figures.main --figure fig2
+PYTHONPATH=. python -m figures.main --all
+```
+
+绘图入口不需要也不接受 `run_id`。`run_id` 只是分析工作流内部用于区分不同结果目录
+的 provenance 标识。运行对应的分析任务和图件所需的 asset preparation 后即可绘图；
+绘图源码和 PNG/PDF/SVG 图件公开，数值分析输出和派生表仍保留在本地。
 
 ## 正式实验
 

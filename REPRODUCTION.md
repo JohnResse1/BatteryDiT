@@ -10,13 +10,14 @@ repository rather than an exploratory notebook workflow.
 ## 1. Scope / 复现范围
 
 The public source release contains the model code, preprocessing code, fixed
-protocols, train-only SOC--OCV priors, runners, and regression checks. Raw
-datasets, generated NPZ files, checkpoints, result arrays, manuscript files,
-and figure files are intentionally kept out of Git.
+protocols, train-only SOC--OCV priors, runners, regression checks, figure
+source, and rendered figure files. Raw datasets, generated NPZ files,
+checkpoints, result arrays, manuscript files, and analysis outputs are kept out
+of Git.
 
 公开代码仓库包含模型、预处理、固定实验协议、仅由训练集生成的 SOC--OCV prior、
-运行脚本和回归检查。原始数据、生成的 NPZ、checkpoint、结果数组、论文文档和图片
-不放入 Git，需要在本地准备。
+运行脚本、回归检查、绘图源码和当前图件。原始数据、生成的 NPZ、checkpoint、结果数组、
+论文文档和分析输出不放入 Git，需要在本地生成。
 
 The recommended first rerun is one dataset and one seed:
 
@@ -181,7 +182,25 @@ The fixed multi-dataset protocol is recorded in
 All available runners and their positional arguments are listed in
 [`run_scripts/README-zh.md`](run_scripts/README-zh.md).
 
-## 8. BatteryDiT I/O contract / BatteryDiT 输入输出约定
+## 8. Figure generation / 绘图
+
+After the matching analysis outputs and figure-specific assets exist, list or
+render the current figure tree from the repository root:
+
+```bash
+PYTHONPATH=. python -m figures.main --list
+PYTHONPATH=. python -m figures.main --figure fig2
+PYTHONPATH=. python -m figures.main --all
+```
+
+The dispatcher follows the current figure directories and supports both
+`plot.py` and make-only entries such as `figures/fig6/make_fig6.py`. It does
+not require a `run_id`; that identifier is only an internal name used by some
+analysis workflows to keep versioned output directories separate. Rendered
+PNG/PDF/SVG files and plotting source are included, while numeric analysis
+outputs remain local.
+
+## 9. BatteryDiT I/O contract / BatteryDiT 输入输出约定
 
 The public reconstruction interface receives physical-unit voltage and current
 curves:
@@ -205,7 +224,7 @@ as a separate DiT channel. The DiT predicts a voltage flow velocity of shape
 `(B, 1000, 1)`. Sampling returns the normalized reconstructed voltage, which
 the experiment runner converts back to physical voltage before scoring.
 
-## 9. Reproduction checklist / 复现检查清单
+## 10. Reproduction checklist / 复现检查清单
 
 Before treating a run as formal, verify:
 

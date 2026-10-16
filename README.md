@@ -54,8 +54,11 @@ reads only recorded experiment outputs.
 - Reproduction runners for the reconstruction benchmark, downstream SOH
   prediction, stress tests, cross-dataset evaluation, and population/individual
   recovery analysis.
+- Public plotting source and rendered PNG/PDF/SVG files for the main and
+  supplementary figures. Numeric analysis outputs and derived plotting tables
+  remain local and are regenerated from the formal runs.
 - Optional analysis utilities that consume recorded experiment outputs. Raw
-  data, checkpoints, result arrays, manuscript files, and figure files are
+  data, checkpoints, result arrays, manuscript files, and analysis outputs are
   intentionally excluded from the public source release.
 
 ## Repository layout
@@ -73,12 +76,13 @@ BatteryDiT_clean_rebuild/
 │   └── checkpoints/            # local model state files
 ├── run_scripts/                # reproducible command-line workflows
 ├── analysis/                   # optional analysis of recorded outputs
+├── figures/                    # public plotting code and rendered figures
 ├── results/                    # metrics and exported trajectories
 └── tests/regression/           # protocol and compatibility checks
 ```
 
-Large raw data, generated NPZ files, checkpoints, and trajectory arrays are
-local artifacts and are not required to live in Git.
+Large raw data, generated NPZ files, checkpoints, trajectory arrays, and
+analysis tables are local artifacts and are not required to live in Git.
 
 ## Environment
 
@@ -114,6 +118,25 @@ bash run_scripts/benchmark/run_downstream.sh mit 2021 batterydit trb
 
 Every formal model experiment ultimately enters through `source_code/main.py`.
 The shell scripts only supply the fixed protocol arguments and checkpoint paths.
+
+## Figures
+
+The public figure layer is driven by the results currently present under
+`analysis/outputs/`. It discovers the actual figure directories, so figures
+with a `plot.py` entry point and make-only figures such as Fig. 6 are handled
+without a separate run identifier:
+
+```bash
+PYTHONPATH=. python -m figures.main --list
+PYTHONPATH=. python -m figures.main --figure fig2
+PYTHONPATH=. python -m figures.main --all
+```
+
+The figure command does not accept or require a `run_id`; versioned analysis
+directories are an internal provenance detail. Run the matching analysis tasks
+and any figure-specific asset preparation before rendering. The source code and
+rendered figures are public, while numeric analysis outputs and derived tables
+remain local.
 
 ## Experiment groups
 
