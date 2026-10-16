@@ -59,8 +59,10 @@ in `results/`; `analysis/` reads those tables to make paper figures.
 
 This evaluation-only task loads a formal reconstruction checkpoint and applies
 the frozen five-level `10/30/50/70/90` stress protocol to `test/clean`.  It
-reports sample-level physical-voltage RMSE for downsample, destructive noise,
-random missing, segment missing, and hybrid corruption.
+reports sample-level physical-voltage RMSE for Downsampling, Destructive noise,
+Random-point missing, Segment missing, and hybrid corruption. The corresponding
+internal condition keys remain `downsample`, `destructive`, `random_missing`,
+`segment_missing`, and `hybrid`.
 
 ## Downstream prediction (`PredictDownstream`)
 
